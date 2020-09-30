@@ -53,7 +53,7 @@ public enum CaracteristicaValorTipo {
 }
 ```
 
-Tornando a construção transparente
+Tornando a construção transparente através de método fábrica na entidade característica.
 
 ```java
 public class Caracteristica {
@@ -72,10 +72,10 @@ List<CaracteristicaValor<?>> caracteristicas = List.of(lote.valor("Lote ABC"), d
 
 Estoque estoque =  Estoque.builder()
                           .id(id)
-		                      .produtoId(produtoId)
-		                      .quantidade(quantidade)
-		                      .caracteristicas(caracteristicas)
-		                      .build();
+		          .produtoId(produtoId)
+                          .quantidade(quantidade)
+                          .caracteristicas(caracteristicas)
+                          .build();
 ```
 
 Tornando a ordenação transparente
@@ -92,7 +92,3 @@ estoques.sort(Comparator.comparing(estoque -> estoque.getCaracteristicaValor(alg
 ```
 
 <<Trecho de código >>
-
-
-
-
