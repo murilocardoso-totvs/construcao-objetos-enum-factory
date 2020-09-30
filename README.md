@@ -20,13 +20,76 @@ Para atender as necessidades apresentadas, considere a existência de um cadastr
 
 Mas onde entra o enum factory e como ele pode ajudar?
 
-<<Trecho de código enum factory>>
+```java
+public enum CaracteristicaValorTipo {
+	TEXTO {
+
+		@Override
+		public CaracteristicaValorTexto createInstance(String id, String valor) {
+			return new CaracteristicaValorTexto(id, valor);
+		}
+
+	},
+
+	NUMERO {
+
+		@Override
+		public CaracteristicaValorNumero createInstance(String id, String valor) {
+			return new CaracteristicaValorNumero(id, new BigDecimal(valor));
+		}
+
+	},
+
+	DATA {
+
+		@Override
+		public CaracteristicaValorData createInstance(String id, String valor) {
+			return new CaracteristicaValorData(id, LocalDate.parse(valor));
+		}
+
+	};
+
+	public abstract CaracteristicaValor<?> createInstance(String id, String valor);
+}
+```
 
 Tornando a construção transparente
 
-<<Trecho de código mostrando o construtor estático "valor" na entidade característica>>
+```java
+public class Caracteristica {
+	// ...
+
+	public CaracteristicaValor<?> valor(String valor) {
+		return this.getTipoValor().createInstance(this.id, valor);
+	}
+
+    // ...
+}
+```
+
+```java
+List<CaracteristicaValor<?>> caracteristicas = List.of(lote.valor("Lote ABC"), dataValidade.valor("2021-12-31"));
+
+Estoque estoque =  Estoque.builder()
+                          .id(id)
+		                      .produtoId(produtoId)
+		                      .quantidade(quantidade)
+		                      .caracteristicas(caracteristicas)
+		                      .build();
+```
 
 Tornando a ordenação transparente
+
+  
+```java
+
+// ...
+
+estoques.sort(Comparator.comparing(estoque -> estoque.getCaracteristicaValor(algumaCaracteristica.getId())));
+
+// ...
+
+```
 
 <<Trecho de código >>
 
