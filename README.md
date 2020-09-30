@@ -9,6 +9,7 @@ O encapsulamento das regras de negócio referente ao nascimento de um novo objet
 
 Para ilustrar a situação, trouxemos uma simplificação de um cenário real de controle de estoque. O cenário consiste da necessidade de controlar estoques de produtos que possuem diferentes características. Estas características podem ser "coisas" mais comumns como lote, data de validação, data de  fabricação bem como cor, tamanho ou alguma outra característica não tão comum. O controle de estoque consiste em permitir buscar no estoque produtos com valores de características específicos para características específicas bem como ordenar/priorizar os estoques pelos valores de suas características. Exemplo, buscar os estoques de queijo com data de validade até 31/12/2020 ordenados pela data de validade. Queijos podem possuir características como lote, data de validade e data de fabricação, enquanto camisetas, outro tipo de produto, podem ter outras características como cor e tamanho.
 
+
 ![Imagem lúdica produto x característica](./docs/img/img_diagrama_ludico_caracteristica.png)
 
 
@@ -16,7 +17,9 @@ Para atender as necessidades apresentadas, considere a existência de um cadastr
 * Tornar a construção do objeto transparente independente do tipo de valor;
 * Tornar a ordenação das informações do estoque independente do tipo de valor
 
+
 ![Imagem diagrama característica](./docs/img/img_diagrama_caracteristica.png) 
+
 
 Mas onde entra o enum factory e como ele pode ajudar?
 
@@ -63,7 +66,7 @@ public class Caracteristica {
 		return this.getTipoValor().createInstance(this.id, valor);
 	}
 
-    // ...
+        // ...
 }
 ```
 
