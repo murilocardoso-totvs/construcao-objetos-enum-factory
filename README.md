@@ -70,6 +70,7 @@ public class Caracteristica {
         // ...
 }
 ```
+Utilização do método na criação de um novo estoque.
 
 ```java
 List<CaracteristicaValor<?>> caracteristicas = List.of(lote.valor("Lote ABC"), dataValidade.valor("2021-12-31"));
